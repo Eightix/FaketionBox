@@ -1,0 +1,101 @@
+.header {
+    /* Global styles for header */
+    background-color: #f8f9fa;
+    color: #343a40;
+    padding: 1rem;
+}
+
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Layout */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Controls Panel */
+.controls-panel {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+/* Preview Area */
+.preview-area {
+    background-color: #e9ecef;
+    padding: 15px;
+    border: 1px dashed #ccc;
+}
+
+/* Infobox Styling */
+.infobox {
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+/* Candidate Styling */
+.candidate {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #007bff;
+}
+
+/* Color Bars */
+.color-bar {
+    height: 20px;
+    background-color: #007bff;
+}
+
+/* Images and Logos */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Form Inputs */
+input[type="text"], 
+input[type="email"], 
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+}
+
+/* Buttons */
+.button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+}
+
+/* Utilities */
+.text-center {
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
