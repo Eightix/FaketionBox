@@ -1,20 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Election Infobox Generator</title>
+    <title>ElectionBox — Fake Wikipedia Election Info-Box</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="favicon.svg" rel="icon" type="image/svg+xml">
+
+    <meta charset="utf-8">
+    <meta lang="en">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="eightix">
+    <meta name="description" content="Use this form to generate a fake Wikipedia election info-box!">
+
+    <script type="text/javascript">
+        const urlParams = new URLSearchParams(window.location.search);
+
+        window.onload = function() {
+            for(var pair of urlParams.entries()) {
+                if (pair[0] == 'fullWidth') {
+                    document.getElementById('field-'+pair[0]).checked = true;
+                    continue;
+                }
+                document.getElementById('field-'+pair[0]).value = pair[1];
+            }
+        }
+
+        function reset() {
+            document.location.href = document.location.href.split('?')[0];
+        }
+    </script>
 </head>
 <body>
-    <h1>Election Infobox Generator</h1>
-    <form>
-        <label for="electionName">Election Name:</label>
-        <input type="text" id="electionName" name="electionName" required>
-        <br>
-        <label for="electionDate">Election Date:</label>
-        <input type="date" id="electionDate" name="electionDate" required>
-        <br>
-        <input type="submit" value="Generate Infobox">
+    <h1>ElectionBox</h1>
+    <p>Create your fake Wikipedia election info-box by filling out this form. When you're done, you can save the URL or take a screenshot. Having trouble? Ensure JavaScript is enabled in your browser. Found an issue? <a href="https://github.com/TheAmeliaMay/ElectionBox/issues">Submit an issue report!</a></p>
+
+    <a id="back2main" href="/">🠔 Back to main site</a>
+
+    <script type="text/javascript">
+        if (urlParams.get('electionName') !== null) {
+            document.write(`
+            <table id="infoBox" style="width: 100%;">
+            <colgroup>
+                <col span=1 style="width: 40%;">
+                <col span=1 style="width: 60%;">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th colspan=2>
+                        <div id="electionName" style="text-align:center;">${urlParams.get('electionName')}</div>
+                    </th>
+                </tr>
+            `);
+
+            if (urlParams.get('date') !== '') {
+                document.write(`<tr><th>Date</th><td>${urlParams.get('date')}</td></tr>`);
+            }
+
+            if (urlParams.get('location') !== '') {
+                document.write(`<tr><th>Location</th><td>${urlParams.get('location')}</td></tr>`);
+            }
+
+            if (urlParams.get('turnout') !== '') {
+                document.write(`<tr><th>Turnout</th><td>${urlParams.get('turnout')}</td></tr>`);
+            }
+
+            if (urlParams.get('beforeElection') !== '') {
+                document.write(`<tr><th>Before election</th><td>${urlParams.get('beforeElection')}</td></tr>`);
+            }
+
+            if (urlParams.get('afterElection') !== '') {
+                document.write(`<tr><th>After election</th><td>${urlParams.get('afterElection')}</td></tr>`);
+            }
+
+            for (let i = 1; i <= 3; i++) {
+                if (urlParams.get(`candidate${i}`) !== '' && urlParams.get(`party${i}`) !== '' && urlParams.get(`votes${i}`) !== '') {
+                    document.write(`<tr><th>Candidate ${i}</th><td>${urlParams.get(`candidate${i}`)} (${urlParams.get(`party${i}`)}) — Votes: ${urlParams.get(`votes${i}`)}</td></tr>`);
+                }
+            }
+
+            document.write('</tbody></table><button onclick="reset()">Reset</button>');
+        }
+    </script>
+
+    <form method="get">
+        <h2>Election Details</h2>
+
+        <label for="field-electionName">Election Name</label>
+        <input id="field-electionName" name="electionName" type="text" required><br>
+
+        <label for="field-date">Date</label>
+        <input id="field-date" name="date" type="date" required><br>
+
+        <label for="field-location">Location</label>
+        <input id="field-location" name="location" type="text"><br>
+
+        <label for="field-turnout">Voter Turnout (%)</label>
+        <input id="field-turnout" name="turnout" type="number" step="0.1"><br>
+
+        <label for="field-beforeElection">Before Election</label>
+        <input id="field-beforeElection" name="beforeElection" type="text"><br>
+
+        <label for="field-afterElection">After Election</label>
+        <input id="field-afterElection" name="afterElection" type="text"><br>
+
+        <h2>Candidates</h2>
+
+        <div>
+            <label for="field-candidate1">Candidate 1</label>
+            <input id="field-candidate1" name="candidate1" type="text">
+            <label for="field-party1">Party</label>
+            <input id="field-party1" name="party1" type="text">
+            <label for="field-votes1">Votes</label>
+            <input id="field-votes1" name="votes1" type="number" min="0"><br>
+
+            <label for="field-candidate2">Candidate 2</label>
+            <input id="field-candidate2" name="candidate2" type="text">
+            <label for="field-party2">Party</label>
+            <input id="field-party2" name="party2" type="text">
+            <label for="field-votes2">Votes</label>
+            <input id="field-votes2" name="votes2" type="number" min="0"><br>
+
+            <label for="field-candidate3">Candidate 3</label>
+            <input id="field-candidate3" name="candidate3" type="text">
+            <label for="field-party3">Party</label>
+            <input id="field-party3" name="party3" type="text">
+            <label for="field-votes3">Votes</label>
+            <input id="field-votes3" name="votes3" type="number" min="0"><br>
+        </div>
+
+        <br><input id="submitBtn" type="submit">
     </form>
 </body>
 </html>
