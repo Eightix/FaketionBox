@@ -1,135 +1,116 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ElectionBox — Fake Wikipedia Election Info-Box</title>
-
+    <title>PresidentialElectionBox — Fake Wikipedia Presidential Election Info-Box</title>
     <link href="style.css" rel="stylesheet" type="text/css">
     <link href="favicon.svg" rel="icon" type="image/svg+xml">
 
     <meta charset="utf-8">
     <meta lang="en">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="robots" content="index, follow">
-    <meta name="author" content="eightix">
-    <meta name="description" content="Use this form to generate a fake Wikipedia election info-box!">
-
-    <script type="text/javascript">
-        const urlParams = new URLSearchParams(window.location.search);
-
-        window.onload = function() {
-            for(var pair of urlParams.entries()) {
-                if (pair[0] == 'fullWidth') {
-                    document.getElementById('field-'+pair[0]).checked = true;
-                    continue;
-                }
-                document.getElementById('field-'+pair[0]).value = pair[1];
-            }
-        }
-
-        function reset() {
-            document.location.href = document.location.href.split('?')[0];
-        }
-    </script>
+    <meta name="author" content="Eightix">
+    <meta name="description" content="Use this form to generate a fake Wikipedia presidential election info-box!">
 </head>
 <body>
-    <h1>ElectionBox</h1>
-    <p>Create your fake Wikipedia election info-box by filling out this form. When you're done, you can save the URL or take a screenshot. Having trouble? Ensure JavaScript is enabled in your browser. Found an issue? <a href="https://github.com/TheAmeliaMay/ElectionBox/issues">Submit an issue report!</a></p>
-
-    <a id="back2main" href="/">🠔 Back to main site</a>
-
-    <script type="text/javascript">
-        if (urlParams.get('electionName') !== null) {
-            document.write(`
-            <table id="infoBox" style="width: 100%;">
-            <colgroup>
-                <col span=1 style="width: 40%;">
-                <col span=1 style="width: 60%;">
-            </colgroup>
-            <tbody>
-                <tr>
-                    <th colspan=2>
-                        <div id="electionName" style="text-align:center;">${urlParams.get('electionName')}</div>
-                    </th>
-                </tr>
-            `);
-
-            if (urlParams.get('date') !== '') {
-                document.write(`<tr><th>Date</th><td>${urlParams.get('date')}</td></tr>`);
-            }
-
-            if (urlParams.get('location') !== '') {
-                document.write(`<tr><th>Location</th><td>${urlParams.get('location')}</td></tr>`);
-            }
-
-            if (urlParams.get('turnout') !== '') {
-                document.write(`<tr><th>Turnout</th><td>${urlParams.get('turnout')}</td></tr>`);
-            }
-
-            if (urlParams.get('beforeElection') !== '') {
-                document.write(`<tr><th>Before election</th><td>${urlParams.get('beforeElection')}</td></tr>`);
-            }
-
-            if (urlParams.get('afterElection') !== '') {
-                document.write(`<tr><th>After election</th><td>${urlParams.get('afterElection')}</td></tr>`);
-            }
-
-            for (let i = 1; i <= 3; i++) {
-                if (urlParams.get(`candidate${i}`) !== '' && urlParams.get(`party${i}`) !== '' && urlParams.get(`votes${i}`) !== '') {
-                    document.write(`<tr><th>Candidate ${i}</th><td>${urlParams.get(`candidate${i}`)} (${urlParams.get(`party${i}`)}) — Votes: ${urlParams.get(`votes${i}`)}</td></tr>`);
-                }
-            }
-
-            document.write('</tbody></table><button onclick="reset()">Reset</button>');
-        }
-    </script>
-
+    <h1>PresidentialElectionBox</h1>
+    <p>Fill out this form to generate a presidential election info-box styled like Wikipedia. When you're done, you can save the URL or take a screenshot. Found a bug or want to suggest a feature? <a href="https://github.com/Eightix/FaketionBox/issues">Submit an issue report!</a></p>
+    
     <form method="get">
-        <h2>Election Details</h2>
+        <h2>General Election Information</h2>
+        <label for="field-election_name">Election Name</label>
+        <input id="field-election_name" name="election_name" type="text" required><br>
+        
+        <label for="field-country">Country</label>
+        <input id="field-country" name="country" type="text" required><br>
 
-        <label for="field-electionName">Election Name</label>
-        <input id="field-electionName" name="electionName" type="text" required><br>
-
-        <label for="field-date">Date</label>
-        <input id="field-date" name="date" type="date" required><br>
-
-        <label for="field-location">Location</label>
-        <input id="field-location" name="location" type="text"><br>
+        <label for="field-election_date">Election Date</label>
+        <input id="field-election_date" name="election_date" type="date"><br>
 
         <label for="field-turnout">Voter Turnout (%)</label>
         <input id="field-turnout" name="turnout" type="number" step="0.1"><br>
 
-        <label for="field-beforeElection">Before Election</label>
-        <input id="field-beforeElection" name="beforeElection" type="text"><br>
+        <label for="field-party_colour">Party Color</label>
+        <input id="field-party_colour" name="party_colour" type="color"><br>
 
-        <label for="field-afterElection">After Election</label>
-        <input id="field-afterElection" name="afterElection" type="text"><br>
+        <label for="field-previous_election">Previous Election</label>
+        <input id="field-previous_election" name="previous_election" type="text"><br>
 
-        <h2>Candidates</h2>
+        <label for="field-previous_year">Previous Year</label>
+        <input id="field-previous_year" name="previous_year" type="number"><br>
 
-        <div>
-            <label for="field-candidate1">Candidate 1</label>
-            <input id="field-candidate1" name="candidate1" type="text">
-            <label for="field-party1">Party</label>
-            <input id="field-party1" name="party1" type="text">
-            <label for="field-votes1">Votes</label>
-            <input id="field-votes1" name="votes1" type="number" min="0"><br>
+        <label for="field-next_election">Next Election</label>
+        <input id="field-next_election" name="next_election" type="text"><br>
 
-            <label for="field-candidate2">Candidate 2</label>
-            <input id="field-candidate2" name="candidate2" type="text">
-            <label for="field-party2">Party</label>
-            <input id="field-party2" name="party2" type="text">
-            <label for="field-votes2">Votes</label>
-            <input id="field-votes2" name="votes2" type="number" min="0"><br>
+        <label for="field-next_year">Next Year</label>
+        <input id="field-next_year" name="next_year" type="number"><br>
 
-            <label for="field-candidate3">Candidate 3</label>
-            <input id="field-candidate3" name="candidate3" type="text">
-            <label for="field-party3">Party</label>
-            <input id="field-party3" name="party3" type="text">
-            <label for="field-votes3">Votes</label>
-            <input id="field-votes3" name="votes3" type="number" min="0"><br>
-        </div>
+        <h2>Candidate Information</h2>
+        <!-- Candidate 1 -->
+        <h3>First Candidate</h3>
+        <label for="field-candidate1">Candidate Name</label>
+        <input id="field-candidate1" name="candidate1" type="text" required><br>
 
-        <br><input id="submitBtn" type="submit">
+        <label for="field-home_state1">Home State</label>
+        <input id="field-home_state1" name="home_state1" type="text"><br>
+
+        <label for="field-running_mate1">Running Mate</label>
+        <input id="field-running_mate1" name="running_mate1" type="text"><br>
+
+        <label for="field-party1">Party</label>
+        <input id="field-party1" name="party1" type="text"><br>
+
+        <label for="field-popular_vote1">Popular Vote</label>
+        <input id="field-popular_vote1" name="popular_vote1" type="number"><br>
+
+        <label for="field-percentage1">Percentage (%)</label>
+        <input id="field-percentage1" name="percentage1" type="number" step="0.1"><br>
+
+        <label for="field-electoral_vote1">Electoral Votes</label>
+        <input id="field-electoral_vote1" name="electoral_vote1" type="number"><br>
+
+        <label for="field-states_carried1">States Carried</label>
+        <input id="field-states_carried1" name="states_carried1" type="number"><br>
+
+        <!-- Candidate 2 -->
+        <h3>Second Candidate</h3>
+        <label for="field-candidate2">Candidate Name</label>
+        <input id="field-candidate2" name="candidate2" type="text" required><br>
+
+        <label for="field-home_state2">Home State</label>
+        <input id="field-home_state2" name="home_state2" type="text"><br>
+
+        <label for="field-running_mate2">Running Mate</label>
+        <input id="field-running_mate2" name="running_mate2" type="text"><br>
+
+        <label for="field-party2">Party</label>
+        <input id="field-party2" name="party2" type="text"><br>
+
+        <label for="field-popular_vote2">Popular Vote</label>
+        <input id="field-popular_vote2" name="popular_vote2" type="number"><br>
+
+        <label for="field-percentage2">Percentage (%)</label>
+        <input id="field-percentage2" name="percentage2" type="number" step="0.1"><br>
+
+        <label for="field-electoral_vote2">Electoral Votes</label>
+        <input id="field-electoral_vote2" name="electoral_vote2" type="number"><br>
+
+        <label for="field-states_carried2">States Carried</label>
+        <input id="field-states_carried2" name="states_carried2" type="number"><br>
+
+        <h2>Additional Details</h2>
+        <label for="field-before_election">Before the Election</label>
+        <input id="field-before_election" name="before_election" type="text"><br>
+
+        <label for="field-before_party">Before Party</label>
+        <input id="field-before_party" name="before_party" type="text"><br>
+
+        <label for="field-after_election">After the Election</label>
+        <input id="field-after_election" name="after_election" type="text"><br>
+
+        <label for="field-after_party">After Party</label>
+        <input id="field-after_party" name="after_party" type="text"><br>
+
+        <br><input type="submit" value="Generate Info-Box">
     </form>
 </body>
 </html>
